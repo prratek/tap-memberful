@@ -1,0 +1,23 @@
+version: 1
+send_anonymous_usage_stats: true
+project_id: 2029cab4-ec6c-48e2-9773-d19a45f3a0d2
+plugins:
+  extractors:
+  - name: tap-memberful
+    namespace: tap_memberful
+    executable: /Users/pramchandani/projects/tap-memberful/tap-memberful.sh
+    capabilities:
+    - state
+    - catalog
+    - discover
+    settings:
+    - name: api_key
+      kind: password
+    - name: start_date
+      value: '2010-01-01T00:00:00Z'
+    config:
+      start_date: '2010-01-01T00:00:00Z'
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
