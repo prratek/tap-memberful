@@ -1,8 +1,9 @@
 # Secrets and internal config files
 **/.secrets/*
 
-# Ignore meltano internal cache and sqlite systemdb
-
+# Meltano
+/output/
+meltano.yml
 .meltano/
 
 # Byte-compiled / optimized / DLL files
