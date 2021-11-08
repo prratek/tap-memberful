@@ -218,6 +218,66 @@ class OrdersStream(MemberfulStream):
         """
 
 
+class PlansStream(MemberfulStream):
+    """Define custom stream."""
+    name = "plans"
+    primary_keys = ["id"]
+
+    schema = th.PropertiesList(
+        th.Property("id", th.StringType),
+        th.Property("additionalMemberPriceCents", th.IntegerType),
+        th.Property("afterCheckoutRedirectUrl", th.StringType),
+        th.Property("forSale", th.BooleanType),
+        th.Property("freeTrialType", th.StringType),
+        th.Property("includedMembers", th.IntegerType),
+        th.Property("intervalCount", th.IntegerType),
+        th.Property("name", th.StringType),
+        th.Property(
+            "planGroup",
+            th.ObjectType(
+                th.Property("id", th.StringType),
+                th.Property("name", th.StringType),
+            )
+        ),
+        th.Property("priceCents", th.IntegerType),
+        th.Property("renewalDay", th.IntegerType),
+        th.Property("renewalMonth", th.IntegerType),
+        th.Property("requireAddress", th.BooleanType),
+        th.Property("slug", th.StringType),
+        th.Property("startingMonthForQuarterlyDateBasedPlans", th.IntegerType),
+        th.Property("taxable", th.BooleanType),
+        th.Property("type", th.StringType),
+    ).to_dict()
+
+    query = """
+        query {
+            plans {
+                id
+                additionalMemberPriceCents
+                afterCheckoutRedirectUrl
+                forSale
+                freeTrialType
+                includedMembers
+                intervalCount
+                intervalUnit
+                name
+                planGroup {
+                    id
+                    name
+                }
+                priceCents
+                renewalDay
+                renewalMonth
+                requireAddress
+                slug
+                startingMonthForQuarterlyDateBasedPlans
+                taxable
+                type
+            }
+        }
+        """
+
+
 class SubscriptionsStream(MemberfulStream):
     """Define custom stream."""
     name = "subscriptions"

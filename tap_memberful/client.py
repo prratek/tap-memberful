@@ -41,13 +41,17 @@ class MemberfulStream(GraphQLStream):
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
         """Parse the response and return an iterator of result rows."""
         resp_json = response.json()
-        # print(f"RESPONSE: {resp_json}")
         try:
-            for row in resp_json.get("data", {}).get(self.name, {}).get("edges"):
-                # print(row)
-                yield row.get("node", {})
+            # TODO: Generalize - get_records() method that streams can override?
+            if self.name == "plans":
+                for row in resp_json.get("data", {}).get(self.name, {}):
+                    yield row
+            else:
+                for row in resp_json.get("data", {}).get(self.name, {}).get("edges"):
+                    yield row.get("node", {})
+
         except TypeError as e:
-            # Add explicit error handling when response has errors array
+            # TODO: Add explicit error handling when response has errors array
             print("Damn this is gonna fail")
             print(self.query)
             print(resp_json)
