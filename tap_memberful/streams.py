@@ -132,3 +132,159 @@ class MembersStream(MemberfulStream):
             }
         }
         """
+
+
+class OrdersStream(MemberfulStream):
+    """Define custom stream."""
+    name = "orders"
+    primary_keys = ["id"]
+
+    schema = th.PropertiesList(
+        th.Property("uuid", th.StringType),
+        th.Property("createdAt", th.IntegerType),
+        th.Property(
+            "coupon",
+            th.ObjectType(
+                th.Property("id", th.StringType),
+            )
+        ),
+        th.Property("couponDiscountAmountCents", th.IntegerType),
+        th.Property("currency", th.StringType),
+        th.Property(
+            "member",
+            th.ObjectType(
+                th.Property("id", th.StringType),
+            )
+        ),
+        th.Property(
+            "purchasable",
+            th.ObjectType(
+                th.Property("id", th.StringType),
+            )
+        ),
+        th.Property("purchasableType", th.StringType),
+        th.Property("status", th.StringType),
+        th.Property(
+            "subscription",
+            th.ObjectType(
+                th.Property("id", th.StringType),
+            )
+        ),
+        th.Property("taxAmountCents", th.IntegerType),
+        th.Property("totalCents", th.IntegerType),
+        th.Property("type", th.StringType),
+    ).to_dict()
+
+    query = """
+        query ($afterCursor: String!) {
+            orders(after: $afterCursor) {
+                totalCount
+                pageInfo {
+                    endCursor
+                    hasNextPage
+                }
+                edges {
+                    node {
+                        uuid
+                        createdAt
+                        coupon {
+                            id
+                        }
+                        couponDiscountAmountCents
+                        currency
+                        member {
+                            id
+                        }
+                        purchasable {
+                            ... on Download {
+                                id
+                            }
+                            ... on Plan {
+                                id
+                            }
+                        }
+                        purchasableType
+                        status
+                        subscription {
+                            id
+                        }
+                        taxAmountCents
+                        totalCents
+                        type
+                    }
+                }
+            }
+        }
+        """
+
+
+class SubscriptionsStream(MemberfulStream):
+    """Define custom stream."""
+    name = "subscriptions"
+    primary_keys = ["id"]
+
+    schema = th.PropertiesList(
+        th.Property("id", th.StringType),
+        th.Property("createdAt", th.IntegerType),
+        th.Property("activatedAt", th.IntegerType),
+        th.Property("expiresAt", th.IntegerType),
+        th.Property("active", th.BooleanType),
+        th.Property("additionalMembers", th.IntegerType),
+        th.Property("autorenew", th.BooleanType),
+        th.Property(
+            "coupon",
+            th.ObjectType(
+                th.Property("id", th.StringType),
+            )
+        ),
+        th.Property(
+            "member",
+            th.ObjectType(
+                th.Property("id", th.StringType),
+            )
+        ),
+        th.Property("pastDue", th.BooleanType),
+        th.Property(
+            "plan",
+            th.ObjectType(
+                th.Property("id", th.StringType),
+            )
+        ),
+        th.Property("trialEndAt", th.IntegerType),
+        th.Property("trialStartAt", th.IntegerType),
+    ).to_dict()
+
+    query = """
+        query ($afterCursor: String!) {
+            subscriptions(after: $afterCursor) {
+                totalCount
+                pageInfo {
+                    endCursor
+                    hasNextPage
+                }
+                edges {
+                    node {
+                        id
+                        createdAt
+                        activatedAt
+                        expiresAt
+                        active
+                        additionalMembers
+                        autorenew
+                        coupon {
+                            id
+                        }
+                        member {
+                            id
+                        }
+                        pastDue
+                        plan {
+                            id
+                        }
+                        trialEndAt
+                        trialStartAt
+                    }
+                }
+            }
+        }
+        """

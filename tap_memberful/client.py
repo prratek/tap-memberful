@@ -47,6 +47,7 @@ class MemberfulStream(GraphQLStream):
                 # print(row)
                 yield row.get("node", {})
         except TypeError as e:
+            # Add explicit error handling when response has errors array
             print("Damn this is gonna fail")
             print(self.query)
             print(resp_json)

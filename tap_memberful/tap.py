@@ -10,12 +10,16 @@ from tap_memberful.streams import (
     MemberfulStream,
     ActivitiesStream,
     MembersStream,
+    OrdersStream,
+    SubscriptionsStream,
 )
 
 
 STREAM_TYPES = [
-    # ActivitiesStream,
+    ActivitiesStream,
     MembersStream,
+    OrdersStream,
+    SubscriptionsStream,
 ]
 
 
