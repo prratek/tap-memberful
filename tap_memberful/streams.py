@@ -86,7 +86,15 @@ class MembersStream(MemberfulStream):
         th.Property("stripeCustomerId", th.StringType),
         th.Property("totalOrders", th.IntegerType),
         th.Property("totalSpendCents", th.IntegerType),
-        # th.Property("trackingParams", th.StringType),  TODO: Stringify?
+        th.Property(
+            "trackingParams",
+            th.ObjectType(
+                th.Property("referrer", th.StringType),
+                th.Property("utm_source", th.StringType),
+                th.Property("utm_medium", th.StringType),
+                th.Property("utm_campaign", th.StringType),
+            )
+        ),
         th.Property("unrestrictedAccess", th.BooleanType),
         th.Property("username", th.StringType),
     ).to_dict()
