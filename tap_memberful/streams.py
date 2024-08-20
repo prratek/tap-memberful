@@ -31,7 +31,6 @@ class ActivitiesStream(MemberfulStream):
     query = """
         query ($afterCursor: String!) {
             activities(after: $afterCursor) {
-                totalCount
                 pageInfo {
                     endCursor
                     hasNextPage
