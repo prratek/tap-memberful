@@ -31,7 +31,6 @@ class ActivitiesStream(MemberfulStream):
     query = """
         query ($afterCursor: String!) {
             activities(after: $afterCursor) {
-                totalCount
                 pageInfo {
                     endCursor
                     hasNextPage
@@ -102,7 +101,6 @@ class MembersStream(MemberfulStream):
     query = """
         query ($afterCursor: String!) {
             members(after: $afterCursor) {
-                totalCount
                 pageInfo {
                     endCursor
                     hasNextPage
@@ -186,7 +184,6 @@ class OrdersStream(MemberfulStream):
     query = """
         query ($afterCursor: String!) {
             orders(after: $afterCursor) {
-                totalCount
                 pageInfo {
                     endCursor
                     hasNextPage
@@ -325,7 +322,6 @@ class SubscriptionsStream(MemberfulStream):
     query = """
         query ($afterCursor: String!) {
             subscriptions(after: $afterCursor) {
-                totalCount
                 pageInfo {
                     endCursor
                     hasNextPage
